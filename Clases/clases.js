@@ -42,3 +42,5 @@ console.log(usuario1.getBookNames());
 console.log(usuario1.getFullName());
 usuario1.addMascota("bicho");
 console.log(usuario1.countMascotas());
+usuario1.addBook("El señor de los anillos", "J.R.R.Tolkien");
+console.log(usuario1.getBookNames());
