@@ -2,7 +2,7 @@ const fs = require("fs");
 
 class Container {
   constructor(path) {
-    this.nameFile = path;
+    this.fileName = path;
   }
 
   async save(product) {
@@ -10,7 +10,9 @@ class Container {
 
     try {
       let id;
-      products.length ? (id = 1) : (id = products[products.length - 1].id + 1);
+      products.length === 0
+        ? (id = 1)
+        : (id = products[products.length - 1].id + 1);
       const newProduct = { ...product, id };
       products.push(newProduct);
       await this.writeFile(products);
@@ -32,7 +34,7 @@ class Container {
 
   async getAll() {
     try {
-      const products = await fs.promises.readFile(this.nameFile, "utf-8");
+      const products = await fs.promises.readFile(this.fileName, "utf-8");
       return JSON.parse(products);
     } catch (error) {
       console.log(error);
@@ -55,7 +57,7 @@ class Container {
 
   async writeFile(data) {
     try {
-      await fs.promises.writeFile(this.path, JSON.stringify(data, null, 2));
+      await fs.promises.writeFile(this.fileName, JSON.stringify(data, null, 2));
     } catch (error) {
       console.log(error);
     }
