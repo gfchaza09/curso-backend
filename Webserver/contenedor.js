@@ -35,6 +35,9 @@ class Container {
   async getProductRandom() {
     const products = await this.getAll();
     try {
+      let idRandom = Math.round(Math.random() * (products.length - 1)) + 1;
+      const product = products.find((prod) => prod.id === idRandom);
+      return product ? product : null;
     } catch (error) {
       console.log(error);
     }

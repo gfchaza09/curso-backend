@@ -18,7 +18,8 @@ app.get("/productos", async (req, res) => {
 });
 
 app.get("/productoRandom", async (req, res) => {
-  res.send({ nombre: "Producto random" });
+  let productRandom = await products.getProductRandom();
+  res.send(productRandom);
 });
 
 // Configuramos el puerto
