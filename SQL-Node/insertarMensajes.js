@@ -1,5 +1,5 @@
 import knex from "knex";
-import config from "../src/config.js";
+import config from "./config.js";
 
 const knexConnection = knex(config.sqlite3);
 

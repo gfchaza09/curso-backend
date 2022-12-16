@@ -1,11 +1,14 @@
 import knex from "knex";
-import config from "../src/config.js";
+import config from "./config.js";
 
 //------------------------------------------
 // productos en MariaDb
 
 try {
   const mariaDbClient = knex(config.mariaDb);
+
+  await mariaDbClient.schema.dropTableIfExists("productos");
+
   await mariaDbClient.schema.createTable("productos", (table) => {
     table.increments("id").primary();
     table.string("title").notNullable();
@@ -26,6 +29,8 @@ try {
 // mensajes en SQLite3
 try {
   const sqliteClient = knex(config.sqlite3);
+
+  await sqliteClient.schema.dropTableIfExists("mensajes");
 
   //Implementar creación de tabla
   await sqliteClient.schema.createTable("mensajes", (table) => {

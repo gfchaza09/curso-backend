@@ -1,6 +1,6 @@
 const socket = io.connect();
 
-socket.emit("conection", console.log("base de datos productos conectada"));
+socket.emit("connection", console.log("base de datos productos conectada"));
 
 //------------------------------------------------------------------------------------
 

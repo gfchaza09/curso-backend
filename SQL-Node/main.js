@@ -23,7 +23,7 @@ const mensajesApi = new ContenedorSQL(config.sqlite3, "mensajes");
 io.on("connection", async (socket) => {
   //Implementación
 
-  socket.on("conection", async (data) => {
+  socket.on("connection", async (data) => {
     await prodList();
     await chatList();
   });
