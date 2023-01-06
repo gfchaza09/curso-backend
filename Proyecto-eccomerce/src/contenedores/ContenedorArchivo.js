@@ -1,8 +1,9 @@
-const fs = require("fs");
+import fs from "fs";
+import config from "../config.js";
 
-class Productos {
+class ContenedorArchivo {
   constructor(route) {
-    this.route = route;
+    this.route = `${config.fileSystem.path}/${route}`;
   }
 
   async list(id) {
@@ -86,4 +87,4 @@ class Productos {
   }
 }
 
-module.exports = Productos;
+export default ContenedorArchivo;

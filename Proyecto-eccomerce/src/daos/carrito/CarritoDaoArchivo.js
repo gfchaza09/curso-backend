@@ -1,27 +1,8 @@
-const fs = require("fs");
+import ContenedorArchivo from "../../contenedores/ContenedorArchivo.js";
 
-class Carrito {
-  constructor(route) {
-    this.route = route;
-  }
-
-  async list(id) {
-    const carts = await this.listAll();
-    try {
-      const cart = carts.find((prod) => prod.id === parseInt(id));
-      return cart ? cart.products : null;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async listAll() {
-    try {
-      const carts = await fs.promises.readFile(this.route, "utf-8");
-      return JSON.parse(carts);
-    } catch (error) {
-      console.log(error);
-    }
+class CarritoDaoArchivo extends ContenedorArchivo {
+  constructor() {
+    super("carrito.txt");
   }
 
   async save() {
@@ -56,21 +37,6 @@ class Carrito {
     }
   }
 
-  async delete(id) {
-    const carts = await this.listAll();
-    try {
-      const cart = carts.find((cart) => cart.id === parseInt(id));
-      if (cart) {
-        cart.products = [];
-      }
-      const newCarts = carts.filter((prod) => prod.id !== parseInt(id));
-      await this.writeFile(newCarts);
-      return cart;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async deleteProductCart(id, prodId) {
     const carts = await this.listAll();
     try {
@@ -89,18 +55,6 @@ class Carrito {
       console.log(error);
     }
   }
-
-  async deleteAll() {
-    await this.writeFile([]);
-  }
-
-  async writeFile(data) {
-    try {
-      await fs.promises.writeFile(this.route, JSON.stringify(data, null, 2));
-    } catch (error) {
-      console.log(error);
-    }
-  }
 }
 
-module.exports = Carrito;
+export default CarritoDaoArchivo;
