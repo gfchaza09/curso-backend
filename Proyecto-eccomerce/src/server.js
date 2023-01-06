@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 const { Router } = express;
 
 import {
@@ -49,7 +50,11 @@ productosRouter.get("/", async (req, res) => {
 productosRouter.get("/:id", async (req, res) => {
   let { id } = req.params;
   const producto = await productosApi.list(id);
-  res.json(producto);
+  if (producto) {
+    res.json(producto);
+  } else {
+    res.json({ error: "producto no encontrado" });
+  }
 });
 
 productosRouter.post("/", soloAdmin, async (req, res) => {
