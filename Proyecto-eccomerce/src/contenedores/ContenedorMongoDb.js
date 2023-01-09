@@ -41,11 +41,12 @@ class ContenedorMongoDb {
     try {
       const updatedProduct = await this.coleccion.findById(id);
       if (updatedProduct) {
-        await this.coleccion.updateOne(
-          { _id: ObjectId(id) },
-          { ...prod, timestamp: Date.now() }
+        const result = await this.coleccion.findOneAndUpdate(
+          { _id: id },
+          { ...prod, timestamp: Date.now() },
+          { new: true }
         );
-        return updatedProduct;
+        return result;
       } else {
         return null;
       }
@@ -58,8 +59,8 @@ class ContenedorMongoDb {
     try {
       const deletedProduct = await this.coleccion.findById(id);
       if (deletedProduct) {
-        await this.coleccion.deleteOne({ _id: ObjectId(id) });
-        return true;
+        const result = await this.coleccion.findOneAndDelete({ _id: id });
+        return result;
       } else {
         return null;
       }

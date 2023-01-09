@@ -1,7 +1,7 @@
 let productosDao;
 let carritoDao;
 
-switch ("firebase") {
+switch ("mongodb") {
   case "json":
     const { default: ProductosDaoArchivo } = await import(
       "./productos/ProductosDaoArchivo.js"
